@@ -51,19 +51,20 @@ class Book < Airrecord::Table
   ]
 
   # Create a Book record from a Goodreads API request
-  def create_from_goodreads(book)
+  def create_from_goodreads(book, mark_read)
     self['ISBN']              = book.isbn13
     self['Title']             = book.title_without_series
     self['Categories']        = create_categories(goodreads_categories)
     series, series_number     = create_series(book.title)
     self['Series']            = series
     self['Series Number']     = series_number
-    self['Publication Year']  = book.publication_year.to_s
+    self['Publication Year']  = book.publication_year.to_s if !book.publication_year.blank?
     self['Goodreads Rating']  = book.average_rating.to_f
     self['Pages']             = book.num_pages.to_i
     authors                   = [book.authors.author].flatten
     self['Authors']           = create_author(authors)
     self['Goodreads Ratings'] = book.ratings_count.to_i
+    self['Read']              = true if mark_read
     self.save
   end
 
