@@ -29,5 +29,5 @@ class Importer
     end
 end
 
-Airrecord.api_key = ''
+Airrecord.api_key = ENV['AIRTABLE_KEY']
 Importer.import_from_goodreads
