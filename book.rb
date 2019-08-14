@@ -1,3 +1,4 @@
+require 'byebug'
 require_relative 'author'
 require_relative 'serie'
 require_relative 'category'
@@ -60,6 +61,7 @@ class Book < Airrecord::Table
     self['Series Number']     = series_number
     self['Publication Year']  = book.publication_year.to_s if !book.publication_year.blank?
     self['Goodreads Rating']  = book.average_rating.to_f
+    self['Goodreads URL']     = book.link
     self['Pages']             = book.num_pages.to_i
     authors                   = [book.authors.author].flatten
     self['Authors']           = create_author(authors)
