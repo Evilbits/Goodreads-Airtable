@@ -52,15 +52,17 @@ class Book < Airrecord::Table
   ]
 
   # Create a Book record from a Goodreads API request
-  def create_from_goodreads(book, mark_read)
+  def create_from_goodreads(book, mark_read, personal_rating)
     self['ISBN']              = book.isbn13
     self['Title']             = book.title_without_series
+    self['Cover']             = create_cover(book)
     self['Categories']        = create_categories(goodreads_categories)
     series, series_number     = create_series(book.title)
     self['Series']            = series
     self['Series Number']     = series_number
     self['Publication Year']  = book.publication_year.to_s if !book.publication_year.blank?
     self['Goodreads Rating']  = book.average_rating.to_f
+    self['Personal Rating']   = personal_rating if personal_rating > 0
     self['Goodreads URL']     = book.link
     self['Pages']             = book.num_pages.to_i
     authors                   = [book.authors.author].flatten
@@ -71,6 +73,14 @@ class Book < Airrecord::Table
   end
 
   private
+
+    def create_cover(book)
+      [
+        {
+          "url": book.image_url
+        }
+      ]
+    end
 
     def create_categories(categories)
       category_ids     = []

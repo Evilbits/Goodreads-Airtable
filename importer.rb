@@ -27,11 +27,12 @@ class Importer
       books.each_with_index do |shelf_book, idx|
         book = shelf_book.book
         existing_book = existing_books.find { |other| other["ISBN"] == book.isbn13 }
+        personal_rating = shelf_book.rating.to_i
         logger.info("#{idx+1}/#{books_length} - #{book.title}")
         if existing_book
-          existing_book.create_from_goodreads(book, mark_read)
+          existing_book.create_from_goodreads(book, mark_read, personal_rating)
         else
-          Book.new("Title" => book.title).create_from_goodreads(book, mark_read)
+          Book.new("Title" => book.title).create_from_goodreads(book, mark_read, personal_rating)
         end
       end
     end
