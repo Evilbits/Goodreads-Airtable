@@ -8,5 +8,7 @@ Remember to add your own Goodreads and Airtable API keys.
 
 # Usage
 Pull to server and setup environment variables.
+
 Setup Airtable.
+
 Run in cronjob.
