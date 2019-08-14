@@ -6,6 +6,8 @@ Won't work by default unless Airtable is setup with correct associations and att
 
 Remember to add your own Goodreads and Airtable API keys.
 
+[Example](https://airtable.com/shrbnNOGzXUakrXMj/tblpA7w5uCTdnEWrt/viwNqVN94B5r9jAUY?blocks=hide)
+
 # Usage
 Pull to server and setup environment variables.
 
