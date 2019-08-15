@@ -14,3 +14,15 @@ Pull to server and setup environment variables.
 Setup Airtable.
 
 Run in cronjob.
+
+# Cron setup
+First run `rvm cron setup` if using RVM.
+
+Afterwards setup the crontab with your ENV vars like so.
+This will run the script every 30 minutes.
+```
+GOODREADS_TOKEN=""
+GOODREADS_SECRET=""
+AIRTABLE_KEY=""
+0,30 * * * * ruby /path/to/script/importer.rb
+```
