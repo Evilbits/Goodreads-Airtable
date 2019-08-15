@@ -25,8 +25,8 @@ class Importer
       books        = shelf.books
       books_length = books.length
       books.each_with_index do |shelf_book, idx|
-        book = shelf_book.book
-        existing_book = existing_books.find { |other| other["ISBN"] == book.isbn13 }
+        book            = shelf_book.book
+        existing_book   = find_existing_book(existing_books, book)
         personal_rating = shelf_book.rating.to_i
         logger.info("#{idx+1}/#{books_length} - #{book.title}")
         if existing_book
@@ -35,6 +35,10 @@ class Importer
           Book.new("Title" => book.title).create_from_goodreads(book, mark_read, personal_rating)
         end
       end
+    end
+
+    def self.find_existing_book(existing_books, book)
+      existing_books.find { |other| other["Title"] == book.title_without_series }
     end
 
     def self.logger
